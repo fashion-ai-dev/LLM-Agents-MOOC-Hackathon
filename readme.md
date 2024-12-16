@@ -14,8 +14,8 @@ Before starting, ensure you have the following installed on your system:
 ### Step 1: Clone the Repository
 
 ```bash
-git clone <repository-url>
-cd <repository-directory>
+git clone https://github.com/fashion-ai-dev/LLM-Agents-MOOC-Hackathon
+cd LLM-Agents-MOOC-Hackathon
 ```
 
 ### Step 2: Build and Run the Containers
