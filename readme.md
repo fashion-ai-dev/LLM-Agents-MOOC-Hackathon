@@ -20,7 +20,7 @@ cd LLM-Agents-MOOC-Hackathon
 
 ### Step 2: Build and Run the Containers
 
-Run the following command to build and start the backend and frontend services:
+Open the Docker Desktop application then run the following command to build and start the backend and frontend services:
 
 ```bash
 docker-compose up --build
