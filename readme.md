@@ -40,7 +40,7 @@ project-root/
 │
 ├── backend/           # Backend application (FastAPI)
 │   ├── Dockerfile     # Dockerfile for the backend
-│   ├── main.py        # Main application entry point
+│   ├── app.py        # Main application entry point
 │   └── ...
 │
 ├── frontend/          # Frontend application (React + Vite)
