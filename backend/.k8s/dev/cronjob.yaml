@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: nico-agent-cronjob-dev
+  namespace: nico-agent-dev
+spec:
+  schedule: "0 13 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: nico-agent
+              image: DOCKER_IMAGE
+              command: ["python"]
+              args: ["fetch_data/bq.py"]
+          restartPolicy: Never
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 2

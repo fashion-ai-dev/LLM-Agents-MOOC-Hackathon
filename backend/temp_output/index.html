@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket.IO Client</title>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        h1 {
+            color: #333;
+        }
+        #messages {
+            width: 80%;
+            max-width: 600px;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            overflow-y: auto;
+            height: 300px;
+            border-radius: 8px;
+        }
+        .message {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        #sendMessage {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #sendMessage:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Socket.IO Chat</h1>
+    <div id="messages"></div>
+    <button id="sendMessage">Send Message</button>
+
+    <script>
+        // Conectar ao servidor Socket.IO
+        const socket = io('http://127.0.0.1:3000', {
+            transports: ['websocket', 'polling']
+        });
+
+        // Evento de conexão
+        socket.on('connect', () => {
+            console.log('Connected to server');
+            addMessage('Connected to server');
+        });
+
+        // Receber mensagens do servidor
+        socket.on('message', (message) => {
+            console.log('Message from server:', message);
+            addMessage('Server: ' + message.data);
+        });
+
+        // Evento de desconexão
+        socket.on('disconnect', () => {
+            console.log('Disconnected from server');
+            addMessage('Disconnected from server');
+        });
+
+        // Enviar mensagem ao clicar no botão
+        document.getElementById('sendMessage').addEventListener('click', () => {
+            const message = 'Hello, server!';
+            socket.emit('chat_message', message);
+            addMessage('You: ' + message);
+        });
+
+        // Função para adicionar mensagem na tela
+        function addMessage(text) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+            messageDiv.textContent = text;
+            document.getElementById('messages').appendChild(messageDiv);
+            document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+        }
+    </script>
+</body>
+</html>

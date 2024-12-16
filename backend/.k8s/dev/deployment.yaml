@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nico-agent
+  namespace: nico-agent-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nico-agent
+  strategy:
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: nico-agent
+    spec:
+      containers:
+        - name: nico-agent
+          image: DOCKER_IMAGE
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              cpu: 500m
+              memory: 512Mi
+            limits:
+              cpu: 1000m
+              memory: 1024Mi
+      restartPolicy: Always
+
+---
+
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: nico-agent-hpa
+  namespace: nico-agent-dev
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: nico-agent
+  minReplicas: 1
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 80
