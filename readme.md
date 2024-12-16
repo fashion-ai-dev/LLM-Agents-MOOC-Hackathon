@@ -1,4 +1,4 @@
-# Fullstack Application - Dockerized Setup
+# LLM AGENTS - Dockerized Setup
 
 This repository contains two projects: a **backend** (FastAPI) and a **frontend** (React with Vite). Both are configured to run together using Docker Compose.
 
