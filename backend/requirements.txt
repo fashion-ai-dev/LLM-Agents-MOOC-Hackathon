@@ -57,7 +57,7 @@ matplotlib==3.9.2
 matplotlib-inline==0.1.7
 multidict==6.0.5
 numpy==2.0.2
-openai==1.42.0
+openai==1.57.4
 packaging==24.1
 pandas==2.2.2
 parso==0.8.4
