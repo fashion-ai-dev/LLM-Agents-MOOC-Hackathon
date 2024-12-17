@@ -46,6 +46,10 @@ async def run_bi_manager(message,user_input,master_agent_input,sid, message_id, 
         "tool_choice": {"type": "function", "function": {"name": "execute_code"}},
         "parallel_tool_calls": False,
         "messages": message,
+        "store": True,
+        "metadata": {
+            "role": "data_manager",
+        },
         "temperature": 0
 
     }

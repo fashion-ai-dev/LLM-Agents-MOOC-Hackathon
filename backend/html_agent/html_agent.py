@@ -24,6 +24,10 @@ async def run_html_answer(message,user_input,master_agent_input,sid, message_id,
         "messages": message,
         "tool_choice": "required",
         "temperature": 0,
+        "store": True,
+        "metadata": {
+            "role": "html_designer",
+        },
         "tools": html_tools,
 
         }

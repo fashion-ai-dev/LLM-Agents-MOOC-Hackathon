@@ -45,6 +45,10 @@ async def run_master_agent(message, user_input, sid, message_id, thread_id):
         "tools": master_tools,
         "tool_choice": {"type": "function", "function": {"name": "plan_scratchpad"}},
         "parallel_tool_calls": False,
+        "store": True,
+        "metadata": {
+            "role": "maestro",
+                },
         "messages": message,
         "temperature": 0,
     }

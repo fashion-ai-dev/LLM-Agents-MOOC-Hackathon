@@ -46,6 +46,10 @@ async def run_sql_query(
         "tools": sql_agent_tools,
         "tool_choice": "required",
         "messages": message,
+        "store": True,
+        "metadata": {
+            "role": "sql_agent",
+        },
         "temperature": 0,
     }
     # print(message)
