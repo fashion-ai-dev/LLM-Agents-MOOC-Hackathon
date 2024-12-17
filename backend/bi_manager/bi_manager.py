@@ -49,7 +49,8 @@ async def run_bi_manager(message,user_input,master_agent_input,sid, message_id, 
         "store": True,
         "metadata": {
             "role": "data_manager",
-        },
+            "project": "hackathon",
+                },
         "temperature": 0
 
     }

@@ -48,6 +48,7 @@ async def run_master_agent(message, user_input, sid, message_id, thread_id):
         "store": True,
         "metadata": {
             "role": "maestro",
+            "project": "hackathon",
                 },
         "messages": message,
         "temperature": 0,

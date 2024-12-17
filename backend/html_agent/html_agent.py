@@ -27,7 +27,8 @@ async def run_html_answer(message,user_input,master_agent_input,sid, message_id,
         "store": True,
         "metadata": {
             "role": "html_designer",
-        },
+            "project": "hackathon",
+                },
         "tools": html_tools,
 
         }

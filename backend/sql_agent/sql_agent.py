@@ -49,6 +49,7 @@ async def run_sql_query(
         "store": True,
         "metadata": {
             "role": "sql_agent",
+            "project" : "hackathon",
         },
         "temperature": 0,
     }
