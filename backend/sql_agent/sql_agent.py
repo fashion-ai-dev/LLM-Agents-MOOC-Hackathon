@@ -41,7 +41,7 @@ async def run_sql_query(
     print("SQL Agent", message, "\n\n\n")
 
     model_settings = {
-        "model": "ft:gpt-4o-2024-08-06:fashionai:sql-agent-python:ALzCsYgL",  # ft:gpt-4o-2024-08-06:fashionai:sql-agent:ALEkyhlL
+        "model": "ft:gpt-4o-2024-08-06:fashionai:sql-agent:ApjieCJc",#"ft:gpt-4o-2024-08-06:fashionai:sql-agent-python:ALzCsYgL",  # ft:gpt-4o-2024-08-06:fashionai:sql-agent:ALEkyhlL
         "seed": 1841802839,
         "tools": sql_agent_tools,
         "tool_choice": "required",
