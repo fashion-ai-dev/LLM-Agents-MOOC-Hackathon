@@ -2,10 +2,16 @@ FROM python:3.10
 
 WORKDIR /app
 
-COPY . .
+
+COPY requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
+
+COPY dev.sh .
+RUN chmod +x dev.sh
+
 EXPOSE 3001
 
-CMD ["python", "app.py"]
+
+CMD ["./dev.sh"]
