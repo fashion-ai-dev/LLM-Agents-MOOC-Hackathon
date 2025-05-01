@@ -103,18 +103,18 @@ def fetch_postgres_data(sql_code):
 
 #Test function
 
-query = '''
-SELECT TO_CHAR("creationDate", 'DD-MM-YY') AS date, SUM(first_orders."total_Items_value") AS revenue
-FROM (
-    SELECT DISTINCT ON ("orderId") "orderId", "total_Items_value", "creationDate"
-    FROM sales_history
-    WHERE EXTRACT(YEAR FROM "creationDate") = 2024
-    AND EXTRACT(MONTH FROM "creationDate") = 9
-    ORDER BY "orderId", "creationDate"
-) AS first_orders
-GROUP BY date
-ORDER BY date
-'''
-
-result = fetch_postgres_data(query)
-print(result)
+# query = '''
+# SELECT TO_CHAR("creationDate", 'DD-MM-YY') AS date, SUM(first_orders."total_Items_value") AS revenue
+# FROM (
+#     SELECT DISTINCT ON ("orderId") "orderId", "total_Items_value", "creationDate"
+#     FROM sales_history
+#     WHERE EXTRACT(YEAR FROM "creationDate") = 2024
+#     AND EXTRACT(MONTH FROM "creationDate") = 9
+#     ORDER BY "orderId", "creationDate"
+# ) AS first_orders
+# GROUP BY date
+# ORDER BY date
+# '''
+#
+# result = fetch_postgres_data(query)
+# print(result)
