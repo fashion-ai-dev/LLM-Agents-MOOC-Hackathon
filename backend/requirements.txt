@@ -106,3 +106,5 @@ yarl==1.9.4
 zipp==3.20.1
 zope.event==5.0
 zope.interface==7.0.3
+watchdog
+
