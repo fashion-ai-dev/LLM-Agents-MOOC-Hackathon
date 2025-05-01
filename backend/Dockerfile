@@ -2,16 +2,10 @@ FROM python:3.10
 
 WORKDIR /app
 
-
 COPY requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-
-COPY dev.sh .
-RUN chmod +x dev.sh
-
 EXPOSE 3001
 
-
-CMD ["./dev.sh"]
+CMD ["watchmedo", "auto-restart", "--directory=./", "--pattern=*.py", "--recursive", "--", "python", "app.py"]
