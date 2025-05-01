@@ -1,14 +1,16 @@
-FROM node:18
+FROM node:20 AS builder
 
 WORKDIR /app
 
 COPY . .
 
 RUN cp .env.example .env
-RUN npm install && npm run build
 
+RUN yarn install --frozen-lockfile
+RUN yarn build
 
 FROM nginx:1.21
-COPY --from=0 /app/dist /usr/share/nginx/html
+
+COPY --from=builder /app/dist /usr/share/nginx/html
 
 EXPOSE 80
