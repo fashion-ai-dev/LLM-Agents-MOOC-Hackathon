@@ -9,6 +9,8 @@ services:
       - "3001:3001"
     environment:
       - PORT=3001
+      - PYTHONUNBUFFERED=1
+      - PYTHONWATCHDOG_OBSERVER=polling
     # env_file:
     #   - ./backend/.env
     volumes:
