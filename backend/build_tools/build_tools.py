@@ -84,6 +84,28 @@ data_manager_agent = {
     }
 }}
 
+style_agent = {
+    "type": "function",
+    "function": {
+
+    "name": "style_agent",
+    "description": """An agent that receives a fashion concept from the user query and returns a cluster of products or 
+    customers that match the query.
+      """,
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "input": {
+              "type": "string",
+              "description": "A query with fashion concept, looks, occasions, etc that comes fom the user input."
+                      ""
+            },
+        },
+        "required": ["input"],
+        "additionalProperties": False,
+    }
+}}
+
 html_designer = {
     "type": "function",
     "function": {
@@ -120,7 +142,7 @@ html_designer = {
 
 
 
-master_tools = [html_designer,plan_scratchpad,sql_sales_data_agent,data_manager_agent]
+master_tools = [html_designer,plan_scratchpad,sql_sales_data_agent,data_manager_agent,style_agent]
 
 
 
@@ -187,6 +209,7 @@ answer = {
 
 
 bi_manager_tools =[run_python_code]
+style_agent_tools =[run_python_code]
 
 ########################### HTMl TOOLS###########################
 html_output = {
