@@ -55,7 +55,7 @@ def semantic_search(
         "products_to_exclude": products_to_exclude,
     }
 
-    response = requests.post(API_URL, headers=HEADERS, json=body, timeout=30)
+    response = requests.post(API_URL, headers=HEADERS, json=body, timeout=120)
     response.raise_for_status()  # raises HTTPError for bad responses
     return response.json()
 
