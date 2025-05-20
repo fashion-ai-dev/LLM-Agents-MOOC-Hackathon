@@ -14,6 +14,7 @@ from bi_manager.python_env.imports import prepare_environment
 from globals import user_tokens, customer_environments
 import json
 from sql_agent.sql_function import fetch_postgres_data
+from style_agent.style_function import semantic_search
 import io
 import tempfile
 import os
@@ -22,6 +23,7 @@ load_dotenv()
 
 port = os.getenv('PORT')
 
+###AJUSTAR ENVIROMENT PARA USAR OS IMPORTS#####
 
 # async def execute_code(user_input, code, sid, message_id, thread_id):
 #     """
@@ -191,6 +193,7 @@ async def send_final_bi_answer(user_input, input, sid, message_id, thread_id):
 
 # Persistent environment dictionary to keep variables between runs
 environment = {
+    "semantic_search":semantic_search,
     "fetch_postgres_data": fetch_postgres_data,
     "os": os,
     "tempfile": tempfile

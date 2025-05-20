@@ -6,6 +6,7 @@ import pandas as pd
 import json
 import importlib
 from sql_agent.sql_function import fetch_postgres_data
+from style_agent.style_function import semantic_search
 from globals import user_tokens
 
 
@@ -79,6 +80,7 @@ def prepare_environment(client, functions_with_modules,sid, default_params=None)
     clients_environments[client]['sid'] = sid
     clients_environments[client]['__builtins__']['pd'] = pd
     clients_environments[client]['__builtins__']['json'] = json
+    clients_environments[client]['__builtins__']['semantic_search'] = semantic_search
 
 
     # Load functions
@@ -100,10 +102,14 @@ def prepare_environment(client, functions_with_modules,sid, default_params=None)
       )
       return cloned_func
 
-    # Inject 'sid' into filter_products_mongo
+    # Inject 'sid' into tools
     
     cloned_fetch_postgres_data = inject_sid(fetch_postgres_data, sid)
     clients_environments[client]['__builtins__']['fetch_postgres_data'] = cloned_fetch_postgres_data
+
+    ###Atualizar para ir para prod
+    # cloned_semantic_search = inject_sid(semantic_search, sid)
+    # clients_environments[client]['__builtins__']['semantic_search'] = cloned_semantic_search
 
     ###Returning a dic so in the future execute_code can hold a dic of envs.
     return clients_environments[client]

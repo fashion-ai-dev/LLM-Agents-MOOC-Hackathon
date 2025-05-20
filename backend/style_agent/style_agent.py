@@ -4,7 +4,7 @@ from openai import OpenAI
 from dotenv import load_dotenv
 import os
 import json
-from platform_hub.prompt_hub import sql_agent
+from platform_hub.prompt_hub import style_agent_prompt
 from build_tools.build_tools import style_agent_tools
 from sql_agent.sql_function import fetch_postgres_data
 from utils import parse_tool_output
@@ -24,7 +24,7 @@ async def run_style_agent(
     message, user_input, master_agent_input, sid, message_id, thread_id
 ):
 
-    agent = "sql_agent"
+    agent = "Style Agent"
     log_id = str(uuid.uuid4())
 
     logs_data = {
@@ -103,7 +103,7 @@ async def run_style_agent(
     await store_logs(sid, logs_data)
 
     print(
-        "SQL Tool output", tool_output
+        "Style Agent Tool output", tool_output
     )  # tool_output = execute_code(arguments['input'],sid)
     # # Parse the chat completion content
     tool_history = [
@@ -136,7 +136,7 @@ async def style_agent(user_input, master_agent_input, sid, message_id, thread_id
     attempts = 0
 
     message = [
-        {"role": "system", "content": sql_agent},
+        {"role": "system", "content": style_agent_prompt},
         {"role": "user", "content": str(master_agent_input)},
     ]
 

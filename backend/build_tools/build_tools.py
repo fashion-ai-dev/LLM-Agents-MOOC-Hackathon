@@ -106,6 +106,29 @@ style_agent = {
     }
 }}
 
+scheduler = {
+    "type": "function",
+    "function": {
+
+    "name": "scheduler",
+    "description": """Python script that will run continuously to update output files.
+      """,
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "script": {
+              "type": "string",
+              "description": "Write a python script that can be used to update the output files when run. "
+                             "By default set a frequency of once per month, unless user specifies another frequency."
+                             "Make sure to use the exact same code successfully used by tools and files paths."
+                      ""
+            },
+        },
+        "required": ["input"],
+        "additionalProperties": False,
+    }
+}}
+
 html_designer = {
     "type": "function",
     "function": {
@@ -119,17 +142,7 @@ html_designer = {
         "properties": {
             "input": {
                 "type": "string",
-                "description": """Your input to the hmtl designer should be a plain text with sections below:
-                - the original user question/input to be answered. Do not change languages;
-
-                - Your desired answer that will be formatted into html. Pay strict attention to the following rules:
-                1 - Do not share files unless asked by the user.
-                2 - If answer has a graph, write your answer adding '<div class="chart-content"></div>' in the place of text the graph should be added.
-                3 - Translate the final answer to the same language as 'original_question' in case it is not..
-                4 - You may adjust the text received from Bi_manager to make it human friendly (avoid using math characters or passing code snipets) optmize the final answer structure.
-                5 - Be helpful and insightful, offer the possibility of variations of the data when it makes sense.
-
-                - file_url: URL to any file supporting the answer. Pass '' if no file was created.
+                "description": """Your input to the hmtl designer should be a plain text and contain a message with the status of the request and the files path that were generated.
                 """
             },
 
@@ -142,7 +155,7 @@ html_designer = {
 
 
 
-master_tools = [html_designer,plan_scratchpad,sql_sales_data_agent,data_manager_agent,style_agent]
+master_tools = [html_designer,plan_scratchpad,sql_sales_data_agent,data_manager_agent,style_agent,scheduler]
 
 
 
@@ -163,7 +176,7 @@ run_python_code = {
                 "code": {
                     "type": "string",
                     "description": """Write your python code to execute instructions received from user. 
-                    Make sure to use data infromed by user. Pay strict attention to name of variables o files and reuse them if needed."""
+                    Make sure to use data informed by user. Pay strict attention to name of variables o files and reuse them if needed."""
                 },
             },
             "required": ["code"],
