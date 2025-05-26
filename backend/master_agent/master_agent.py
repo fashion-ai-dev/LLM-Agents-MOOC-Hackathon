@@ -11,6 +11,7 @@ from utils import parse_tool_output,parse_sanitize_tool_output
 from build_tools.build_tools import master_tools
 from platform_hub.logs import store_logs
 from build_tools.trigger_tools import call_tool_function
+from build_tools.build_tools import plan_scratchpad
 from globals import user_tokens
 from datetime import datetime
 import uuid
@@ -53,6 +54,19 @@ async def run_master_agent(message, user_input, sid, message_id, thread_id):
         "messages": message,
         "temperature": 0,
     }
+    # response = client.chat.completions.create(
+    #     model="Llama-4-Scout-17B-16E-Instruct-FP8",  # deployment,
+    #     temperature=0,
+    #     response_format={
+    #         "type": "json_schema",
+    #         "json_schema": {
+    #             "name": "response_schema",
+    #             "schema": plan_scratchpad}
+    #     },
+    #     messages=message,
+    # )
+
+    # print("Conversation History:/n/n",message)
 
     response = OpenAISingleton.get_instance().client.chat.completions.create(**model_settings)
     # print(response)
@@ -157,16 +171,15 @@ async def run_master_agent(message, user_input, sid, message_id, thread_id):
                     "id": tool_call_id,
                     "type": "function",
                     "function": {
-                        "name": tool_name,
-                        "arguments": str(master_agent_input),
+                        "name": "plan_scratchpad",
+                        "arguments": plan,
                     },
                 }
             ],
         },
         {
-            "tool_call_id": tool_call_id,
             "role": "tool",
-            "name": tool_name,
+            "tool_call_id": tool_call_id,
             "content": str(tool_output),
         },
     ]
@@ -239,15 +252,15 @@ async def maestro_agent(data_user, sid):
         message.extend(
             tool_history
         )  # ou sid["conversation_history"].extend, tool_history já é lista
-        message.append(
-            {
-                "role": "user",
-                "content": f"""Take a look our conversation history to craft the best strategy
-                                                        to answer my original input"{user_input}". Your next step should be based on last tool output.
-                                                        Decide which tool to call next.
-                                                        DO NOT CONSIDER THE LANGUAGE OF ORIGINAL INPUT WHEN WRITING FINAL ANSWER""",
-            }
-        )
+        # message.append(
+        #     {
+        #         "role": "user",
+        #         "content": f"""Take a look our conversation history to craft the best strategy
+        #                                                 to answer my original input"{user_input}". Your next step should be based on last tool output.
+        #                                                 Decide which tool to call next.
+        #                                                 DO NOT CONSIDER THE LANGUAGE OF ORIGINAL INPUT WHEN WRITING FINAL ANSWER""",
+        #     }
+        # )
         # store_thread(sid, thread_id, message)
 
         last_tool_names.append(tool_name)

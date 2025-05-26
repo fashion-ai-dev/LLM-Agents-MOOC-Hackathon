@@ -46,7 +46,7 @@ sql_sales_data_agent = {
     This tool does not have access to catalog data.
     Input should be a human text (not code) explaining to a junior data engineer what data you need and output will be a dataframe.
     Do not ask it to format numbers, transform or save data to files.
-    Do write in ENGLISH when using this tool.
+    
     """,
     "parameters": {
         "type": "object",
@@ -68,16 +68,35 @@ data_manager_agent = {
     "name": "data_manager_agent",
     "description": """It is a business intelligence manager that can write and run python code to transform or analyse data.
       It shares the same python env as the sql_sales_data_agent, so you can share the name of any dataframe or files that contains data that should be used.
-      Do write in ENGLISH when using this tool.
+      Do write in ENGLISH when using this tool and be very prescriptive on how it should access the data. Assume it is a very junior agent that needs clear instructions.
       """,
     "parameters": {
         "type": "object",
         "properties": {
             "input": {
-              "type": "string",
-              "description": "Describe what you need the tool to do (ex: generate a graph..., save data to a csv..., etc).\n  In case it needs to use a specific data source, make sure you mention the name of the df, file path as well as ALL columns names, so data_manager_agent can access them correctly."
-                      ""
-            },
+                "type": "string",
+                "description": "Pass a single JSON-formatted string containing three top‑level keys:\n"
+                               "1. briefing – concise statement of WHAT to do;\n"
+                               "2. data_sources – object describing each DataFrame/file (columns, description, keys);\n"
+                               "3. guide – step‑by‑step HOW to use the data_sources.\n"
+                               "Example:\n"
+                               "{\n"
+                               "  \"briefing\": \"Create a customer cluster for high‑value users\",\n"
+                               "  \"data_sources\": {\n"
+                               "     \"df_users\": {\n"
+                               "        \"columns\": {\"id\": \"User ID\", \"score\": \"Relevance score\"},\n"
+                               "        \"description\": \"Users matching fashion concept\",\n"
+                               "        \"keys\": [\"id\"]\n"
+                               "     },\n"
+                               "     \"df_orders\": {\n"
+                               "        \"columns\": {\"user_id\": \"User ID\", \"total\": \"Order value\"},\n"
+                               "        \"description\": \"Orders list\",\n"
+                               "        \"keys\": [\"user_id\"]\n"
+                               "     }\n"
+                               "  },\n"
+                               "  \"guide\": \"Join df_users.id with df_orders.user_id; ...\"\n"
+                               "}"
+            }
         },
         "required": ["input"],
         "additionalProperties": False,
@@ -137,25 +156,35 @@ html_designer = {
     "description": """Use this tool to write your final answer in html format. During a conversation history each answer must be written for the last user input.
         If user expects a file to be downloaded, consider final output will have a hyperlink on some word of your final text.
         """,
-    "parameters": {
-        "type": "object",
-        "properties": {
-            "input": {
-                "type": "string",
-                "description": """Your input to the hmtl designer should be a plain text and contain a message with the status of the request and the files path that were generated.
-                """
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "input": {
+                    "type": "string",
+                    "description": (
+                        "Pass a single JSON-formatted string with two keys:\n"
+                        "1. feedback_message – explanation of how clusters were created (or why not);\n"
+                        "2. files – array of URL strings pointing to generated files.\n"
+                        "Example:\n"
+                        "{\n"
+                        "  \"feedback_message\": \"Clusters generated using k-means …\",\n"
+                        "  \"files\": [\n"
+                        "    \"https://example.com/cluster_products.csv\",\n"
+                        "    \"https://example.com/cluster_users.csv\"\n"
+                        "  ]\n"
+                        "}"
+                    )
+                }
             },
-
-        },
-        "required": ["input"],
-        "additionalProperties": False,
-    }
+            "required": ["input"],
+            "additionalProperties": False,
+        }
 }}
 
 
 
 
-master_tools = [html_designer,plan_scratchpad,sql_sales_data_agent,data_manager_agent,style_agent,scheduler]
+master_tools = [html_designer,plan_scratchpad,sql_sales_data_agent,data_manager_agent,style_agent]
 
 
 
@@ -258,4 +287,3 @@ html_tools=[html_output]
 ##### SQL AGENT
 
 sql_agent_tools= [run_python_code]
-
