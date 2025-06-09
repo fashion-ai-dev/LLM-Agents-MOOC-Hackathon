@@ -172,7 +172,7 @@ async def run_master_agent(message, user_input, sid, message_id, thread_id):
                     "type": "function",
                     "function": {
                         "name": "plan_scratchpad",
-                        "arguments": plan,
+                        "arguments": str(plan),
                     },
                 }
             ],
@@ -282,6 +282,6 @@ async def maestro_agent(data_user, sid):
     return tool_output
 
 
-# user_input = 'What is the average monthly sales from march to july?'
+# user_input = 'crie uma estratégia de marketing para coleçao rock and roll, focada nos clientes que nao compraram no últimoo ano'
 # a = maestro_agent(user_input, sid=12, client_id=None, userProfileId=None)
 # print(a)

@@ -17,8 +17,13 @@ import logging
 from platform_hub.logs import send_error_log
 from openai_client.connection import OpenAISingleton
 
+# Suppress logs from httpx, openai, and other libraries
+logging.getLogger().setLevel(logging.WARNING)
+logging.getLogger("httpx").setLevel(logging.WARNING)
+logging.getLogger("httpcore").setLevel(logging.WARNING)
+logging.getLogger("openai").setLevel(logging.WARNING)
 
-logging.basicConfig(level=logging.INFO)
+# logging.basicConfig(level=logging.INFO)
 
 load_dotenv()
 port = os.getenv('PORT', 3001)

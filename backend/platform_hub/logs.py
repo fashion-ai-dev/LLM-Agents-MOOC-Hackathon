@@ -61,23 +61,24 @@ def send_logs_to_mongo(sid, data,file_path='logs.json'):
         data['user_info'] = user_info
 
   try:
-        # Load existing logs if file exists, otherwise create an empty list
-        if os.path.exists(file_path):
-            with open(file_path, 'r') as file:
-                logs = json.load(file)
-        else:
-            logs = []
-
-        # Append new log data
-        logs.append(data)
-
-        # Save logs back to the file
-        with open(file_path, 'w') as file:
-            json.dump(logs, file, indent=4)
-
-        return data.get('log_id', None)  # Returning log ID or any unique identifier as in Mongo
+        # # Load existing logs if file exists, otherwise create an empty list
+        # if os.path.exists(file_path):
+        #     with open(file_path, 'r') as file:
+        #         logs = json.load(file)
+        # else:
+        #     logs = []
+        #
+        # # Append new log data
+        # logs.append(data)
+        #
+        # # Save logs back to the file
+        # with open(file_path, 'w') as file:
+        #     json.dump(logs, file, indent=4)
+        #
+        # return data.get('log_id', None)  # Returning log ID or any unique identifier as in Mongo
+        pass
   except Exception as e:
-        print(f"Error writing log to file: {e}")
+        # print(f"Error writing log to file: {e}")
         return None
 
 
@@ -138,18 +139,20 @@ def send_error_log(sid, error,file_path='error_logs.json'):
     }
 
     try:
-        # Load existing error logs if file exists, otherwise create an empty list
-        if os.path.exists(file_path):
-            with open(file_path, 'r') as file:
-                error_logs = json.load(file)
-        else:
-            error_logs = []
-
-        # Append the new error log
-        error_logs.append(data_to_insert)
-
-        # Save updated error logs back to the file
-        with open(file_path, 'w') as file:
-            json.dump(error_logs, file, indent=4)
+        # # Load existing error logs if file exists, otherwise create an empty list
+        # if os.path.exists(file_path):
+        #     with open(file_path, 'r') as file:
+        #         error_logs = json.load(file)
+        # else:
+        #     error_logs = []
+        #
+        # # Append the new error log
+        # error_logs.append(data_to_insert)
+        #
+        # # Save updated error logs back to the file
+        # with open(file_path, 'w') as file:
+        #     json.dump(error_logs, file, indent=4)
+        pass
     except Exception as e:
-        print(f"Error writing error log to file: {e}")
+        # print(f"Error writing error log to file: {e}")
+        pass

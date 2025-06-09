@@ -67,7 +67,7 @@ data_manager_agent = {
 
     "name": "data_manager_agent",
     "description": """It is a business intelligence manager that can write and run python code to transform or analyse data.
-      It shares the same python env as the sql_sales_data_agent, so you can share the name of any dataframe or files that contains data that should be used.
+      It shares the same python env as the sql_sales_data_agent and style_agent, so you can must share the name of any dataframe they generated and that needs to be used.
       Do write in ENGLISH when using this tool and be very prescriptive on how it should access the data. Assume it is a very junior agent that needs clear instructions.
       """,
     "parameters": {
@@ -75,27 +75,11 @@ data_manager_agent = {
         "properties": {
             "input": {
                 "type": "string",
-                "description": "Pass a single JSON-formatted string containing three top‑level keys:\n"
+                "description": "Pass instrctions containing three top‑level sections:\n"
                                "1. briefing – concise statement of WHAT to do;\n"
-                               "2. data_sources – object describing each DataFrame/file (columns, description, keys);\n"
+                               "2. data_sources – Make sure to check names of sales, users and poducts data frames and escribing each DataFrame/file. (columns, description, keys);\n"
                                "3. guide – step‑by‑step HOW to use the data_sources.\n"
-                               "Example:\n"
-                               "{\n"
-                               "  \"briefing\": \"Create a customer cluster for high‑value users\",\n"
-                               "  \"data_sources\": {\n"
-                               "     \"df_users\": {\n"
-                               "        \"columns\": {\"id\": \"User ID\", \"score\": \"Relevance score\"},\n"
-                               "        \"description\": \"Users matching fashion concept\",\n"
-                               "        \"keys\": [\"id\"]\n"
-                               "     },\n"
-                               "     \"df_orders\": {\n"
-                               "        \"columns\": {\"user_id\": \"User ID\", \"total\": \"Order value\"},\n"
-                               "        \"description\": \"Orders list\",\n"
-                               "        \"keys\": [\"user_id\"]\n"
-                               "     }\n"
-                               "  },\n"
-                               "  \"guide\": \"Join df_users.id with df_orders.user_id; ...\"\n"
-                               "}"
+
             }
         },
         "required": ["input"],
@@ -125,28 +109,7 @@ style_agent = {
     }
 }}
 
-scheduler = {
-    "type": "function",
-    "function": {
 
-    "name": "scheduler",
-    "description": """Python script that will run continuously to update output files.
-      """,
-    "parameters": {
-        "type": "object",
-        "properties": {
-            "script": {
-              "type": "string",
-              "description": "Write a python script that can be used to update the output files when run. "
-                             "By default set a frequency of once per month, unless user specifies another frequency."
-                             "Make sure to use the exact same code successfully used by tools and files paths."
-                      ""
-            },
-        },
-        "required": ["input"],
-        "additionalProperties": False,
-    }
-}}
 
 html_designer = {
     "type": "function",
