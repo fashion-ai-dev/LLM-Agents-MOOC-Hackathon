@@ -1,36 +1,3 @@
-import json
-import asyncio
-import os
-import shutil
-import contextlib
-import io
-
-from bi_manager.python_env.python_tools_functions import execute_code # Adjust 'your_module' to the actual path if necessary
-
-async def agent_html_designer(user_input, master_agent_input, sid, message_id, thread_id):
-    # Parse master_agent_input
-    parsed_input = json.loads(master_agent_input)
-    variable_name = parsed_input.get("input", {}).get("json", [])[0]  # E.g., 'fashion_data'
-
-    if not variable_name:
-        return {"status": "failure", "html_answer": "No variable specified in input", "file_url": None}
-
-    # Prepare the code to print the variable
-    code_dict = {
-        "code": f"print({variable_name})"
-    }
-
-    # Execute the code
-    result = await execute_code(user_input, code_dict, sid, message_id, thread_id)
-
-    # Return the formatted result
-    return {
-        "status": result["status"],
-        "html_answer": result["output"],
-        "file_url": variable_name
-    }
-
-
 # from openai import OpenAI
 # from dotenv import load_dotenv
 # import os
@@ -38,7 +5,7 @@ async def agent_html_designer(user_input, master_agent_input, sid, message_id, t
 # import json
 # from platform_hub.logs import store_logs
 # import uuid
-# from build_tools.build_tools import html_tools
+# from build_tools.build_tools import tasker_tools
 # from datetime import datetime
 # from openai_client.connection import OpenAISingleton
 #
@@ -49,7 +16,7 @@ async def agent_html_designer(user_input, master_agent_input, sid, message_id, t
 # open_ai = None
 #
 #
-# async def run_html_answer(message,user_input,master_agent_input,sid, message_id, thread_id):
+# async def run_tasker(message,user_input,master_agent_input,sid, message_id, thread_id):
 #
 #     model_settings = {
 #         "model": "gpt-4o",
@@ -59,10 +26,10 @@ async def agent_html_designer(user_input, master_agent_input, sid, message_id, t
 #         "temperature": 0,
 #         "store": True,
 #         "metadata": {
-#             "role": "html_designer",
+#             "role": "tasker",
 #             "project": "hackathon",
 #                 },
-#         "tools": html_tools,
+#         "tools": tasker_tools,
 #
 #         }
 #
@@ -73,7 +40,7 @@ async def agent_html_designer(user_input, master_agent_input, sid, message_id, t
 #
 #     tool_call = response.choices[0].message.tool_calls[0]
 #     # comment = response.choices[0].message.content To be implemented in case a conversation happens instead of a tool call
-#     print("HTML Tool Call: ", tool_call, "\n\n\n")
+#     print("Tasker Tool Call: ", tool_call, "\n\n\n")
 #
 #     arguments = json.loads(tool_call.function.arguments)
 #     tool_name = tool_call.function.name
@@ -81,7 +48,7 @@ async def agent_html_designer(user_input, master_agent_input, sid, message_id, t
 #
 #     prompt_tokens = response.usage.prompt_tokens
 #     reply_tokens = response.usage.completion_tokens
-#     agent = 'HTML Designer'
+#     agent = 'Tasker'
 #     log_id = str(uuid.uuid4())
 #
 #     logs_data = {
@@ -121,17 +88,17 @@ async def agent_html_designer(user_input, master_agent_input, sid, message_id, t
 #
 #
 #
-# async def agent_html_designer(user_input, master_agent_input, sid, message_id, thread_id ):
+# async def agent_tasker(user_input, master_agent_input, sid, message_id, thread_id ):
 #
 #
 #     message = [
-#         {"role": "system", "content": html_agent},
+#         {"role": "system", "content": tasker_agent},
 #         {"role": "user", "content": str(master_agent_input)},
 #     ]
 #
-#     # print("HTML Designer Prompt: ", message)
 #
-#     query, output, tool_call_id,tool_history,tool_name = await run_html_answer(message,user_input, master_agent_input, sid, message_id, thread_id )
+#
+#     query, output, tool_call_id,tool_history,tool_name = await run_tasker(message,user_input, master_agent_input, sid, message_id, thread_id )
 #
 #     # output = parse_tool_output(output)
 #

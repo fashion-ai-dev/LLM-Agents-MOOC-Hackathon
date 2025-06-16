@@ -6,7 +6,7 @@ from bi_manager.python_env.python_tools_functions import execute_code,send_final
 from html_agent.html_tools_functions import send_final_answer
 from style_agent.style_function import semantic_search
 from style_agent.style_agent import style_agent
-from master_agent.master_functions import scheduler
+# from Tasker.tasker_tools import send_details
 
 
 # List of available tools (functions)
@@ -26,7 +26,8 @@ tool_map = {
     'test_sql_query': fetch_postgres_data,
     'style_agent': style_agent,
     'semantic_search':semantic_search,
-    'scheduler':scheduler
+
+
 
 
     # Add more tools/functions here if necessary
