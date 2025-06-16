@@ -1,7 +1,7 @@
 import requests
 
 
-API_URL = "http://92.112.177.201:8086/audience/create/"
+API_URL = "http://147.79.110.30:8086/audience/create/"
 API_PASSWORD = "flamengo2024"
 HEADERS = {
     "accept": "application/json",
