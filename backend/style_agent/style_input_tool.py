@@ -53,7 +53,10 @@ def get_text_characteristic_attributes(taxonomy: Taxonomy):
     ]
 
     # "Vestido"
-    # "Percepcao de cor: Preto"
+    # Group: design_feature\n
+    # Property: Percepcao de cor
+    # Description: {attribute.description}
+    # \nExamples: {attribute.examples}\n
 
     return "\n".join(result)
 
@@ -135,7 +138,7 @@ async def fashion_input(text, sid, taxonomy_language):
         f"""{' '.join(p["Property"].split("_")).capitalize()}: {p["Value"]} """
         for prop in properties_response["response"][0]["completions"]
         for p in prop["Properties"]
-    ]
+    ] # cor de fundo: preto/Percepcao de cor: preto
 
     embeddings_result = OpenAISingleton.get_instance().client.embeddings.create(
         input=embeddings_list, model="text-embedding-3-small"
@@ -149,7 +152,6 @@ async def fashion_input(text, sid, taxonomy_language):
 
     return {
         "properties_response": properties_message.choices[0].message.content,
-        "categories": response_categories.choices[0].message.content,
         "embeddings": embeddings,
         "categories": [
             prop["Category"]
