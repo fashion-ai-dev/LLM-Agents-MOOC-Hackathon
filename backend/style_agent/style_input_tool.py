@@ -52,6 +52,9 @@ def get_text_characteristic_attributes(taxonomy: Taxonomy):
         for category in taxonomy.get_categories()
     ]
 
+    # "Vestido"
+    # "Percepcao de cor: Preto"
+
     return "\n".join(result)
 
 
