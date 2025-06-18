@@ -42,10 +42,8 @@ sql_sales_data_agent = {
     "function": {
 
     "name": "sql_sales_data_agent",
-    "description": """Use this LLM Agent to retrieve Sales History Data. It ha access to the SQL DB that is needed to fetch sales history data.
-    This tool does not have access to catalog data.
-    Input should be a human text (not code) explaining to a junior data engineer what data you need and output will be a dataframe.
-    Do not ask it to format numbers, transform or save data to files.
+    "description": """Use this LLM Agent to retrieve product or sales data. 
+    It has access to the SQL DB that is needed to fetch sales history, CRM or product data.
     
     """,
     "parameters": {
@@ -53,7 +51,7 @@ sql_sales_data_agent = {
         "properties": {
             "input": {
                 "type": "string",
-                "description": "Description of the data you need to retrieve from sales history.",
+                "description": "Content from CRM_requirements, and product_requirements on user input.",
             },
         },
         "required": ["input"],
@@ -150,7 +148,7 @@ html_designer = {
 
 
 
-master_tools = [html_designer,plan_scratchpad,sql_sales_data_agent,data_manager_agent,style_agent]
+master_tools = [plan_scratchpad,sql_sales_data_agent,style_agent, html_designer]
 
 
 
@@ -254,36 +252,8 @@ html_tools=[html_output]
 
 sql_agent_tools= [run_python_code]
 
-###### TASKER
-send_details= {
-    "type": "function",
-    "function": {
-        "name": "send_details",
-        "description": "Use this tool to document and update the step-by-step plan for using other tools to reach a final answer.",
-        "parameters": {
-            "type": "object",
-            "properties": {
-                "fashion_concept": {
-                    "type": "string",
-                    "description": "The fashion concepts behind a marketing strategy.",
-                },
-                "eligible_products": {
-                    "type": "string",
-                    "description": "Details about the products that should be included on a marketing strategy. "
-                                   "Usually details such as age, gender, category, price etc..."
-                                   "Return 'all products are eligible' in case user does not specify details about the products that should be included in the final strategy."
-                },
-                "eligible_customers": {
-                    "type": "string",
-                    "description": "Details about the customers that should be included on a marketing strategy."
-                                    "Usually details such as LTV, ARPU, recency or about past purchases"
-                                   "Return 'all customers are eligible' in case user does not specify details about the products that should be included in the final strategy."
-                },
-                },
+###### Style agent
 
-            },
-            "required": ["fashion_concept", "eligible_products", "eligible_customers"],
-            "additionalProperties": False
-        }
-    }
-tasker_tools=[send_details]
+
+
+style_agent_tools =[run_python_code]

@@ -148,7 +148,7 @@ async def style_agent(user_input, master_agent_input, sid, message_id, thread_id
             message, user_input, master_agent_input, sid, message_id, thread_id
         )
 
-        print("SQL Agent tool output", output, "\n\n\n")
+        print("Style Agent tool output", output, "\n\n\n")
         # print("Type output", type(output), "\n\n\n")
 
         # output = parse_tool_output(output)

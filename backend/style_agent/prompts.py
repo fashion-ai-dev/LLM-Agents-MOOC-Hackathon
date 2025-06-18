@@ -48,7 +48,11 @@ properties_prompt = """
     - If the user specifies what they **don’t** want (e.g., "I don’t want red"), return it under `'negativo'` but **within the same object** as the positive mappings.
     """
 
-categories_sys_prompt = """You are a stylist consultant, specialized in products categories. 
-        You will be given a user input and you need to tell witch categories are the right fit for the input.
-        the allowed categories are {{categories}}
+categories_sys_prompt = """You are an agent capable of identifying fashion categories on a user input. 
+
+        Possible categories list: {{categories}}
+
+        - Check user input for direct mention to categories. Return mentioned categories.
+        - Check user input for clear reference to categories. Example: 'bottom items'. Return categories from the list that satisfy the condition on reference.
+        - No direct mention or clear reference to a given category. Example: 'comfortable clothes', 'items with animal pattern', 'boho chick products', etc. Return nothing.  
         """

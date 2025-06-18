@@ -59,5 +59,47 @@ def semantic_search(
     response.raise_for_status()  # raises HTTPError for bad responses
     return response.json()
 
+
+from style_input_tool import fashion_input
+
+
+def embed_fashion_concept(input, sid=9, taxonomy_language="PT-BR"):
+    return fashion_input(input, sid, taxonomy_language)
 # a = semantic_search("Vestidos pretos lisos")
 # print(a)
+
+def search_products(listadeembeddings,filtros,sid=9):
+    #chamada Qdrant para collection d products coms os embeddings e o filtro.
+#models.Filter(
+    #     must=[
+    #         models.FieldCondition(
+    #             key="city",
+    #             match=models.MatchValue(value="London"),
+    #         ),
+    #         models.FieldCondition(
+    #             key="color",
+    #             match=models.MatchValue(value="red"),
+    #         ),
+    #     ]
+    # # )
+    ### passar regra dos filtro do qdrant:key= ex category, MUST/MUST NOT + https://qdrant.tech/articles/vector-search-filtering/+ valores
+
+    #### Agregar filtro de customer_id ao objeot de filtro
+
+def search_users(listadeembeddings, filtros, sid=9):
+# chamada Qdrant para collection d products coms os embeddings e o filtro.
+# models.Filter(
+#     must=[
+#         models.FieldCondition(
+#             key="city",
+#             match=models.MatchValue(value="London"),
+#         ),
+#         models.FieldCondition(
+#             key="color",
+#             match=models.MatchValue(value="red"),
+#         ),
+#     ]
+# # )
+### passar regra dos filtro do qdrant:key= ex category, MUST/MUST NOT + https://qdrant.tech/articles/vector-search-filtering/+ valores
+
+#### Agregar filtro de customer_id ao objeot de filtro

@@ -6,7 +6,7 @@ import pandas as pd
 import json
 import importlib
 from sql_agent.sql_function import fetch_postgres_data
-from style_agent.style_function import semantic_search
+from style_agent.style_function import semantic_search,embed_fashion_concept
 from globals import user_tokens
 
 
@@ -81,6 +81,7 @@ def prepare_environment(client, functions_with_modules,sid, default_params=None)
     clients_environments[client]['__builtins__']['pd'] = pd
     clients_environments[client]['__builtins__']['json'] = json
     clients_environments[client]['__builtins__']['semantic_search'] = semantic_search
+    clients_environments[client]['__builtins__']['semantic_search'] = embed_fashion_concept
 
 
     # Load functions

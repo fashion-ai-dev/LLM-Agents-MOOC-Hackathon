@@ -21,7 +21,7 @@ properties_schema = {
                                     "properties": {
                                         "Category": {
                                             "type": "string",
-                                            "description": "The category name. Do NOT translate, keep original.",
+                                            "description": "Named categories lilsted on **Available categories:**. If all categories are available pass a empty string",
                                         },
                                         "Properties": {
                                             "type": "array",
@@ -127,7 +127,7 @@ categories_schema = {
                     "type": "array",
                     "items": {
                         "type": "string",
-                        "description": "The recommended categories",
+                        "description": "Categories identified on user input.",
                     },
                 }
             },
